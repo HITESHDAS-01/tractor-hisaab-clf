@@ -121,7 +121,7 @@ export default function ResetPasswordPage() {
 
         {/* Footer */}
         <p className="text-center text-white/60 text-xs mt-6">
-          Track your tractor earnings digitally
+          {t("footerTagline", lang)}
         </p>
       </div>
     </div>

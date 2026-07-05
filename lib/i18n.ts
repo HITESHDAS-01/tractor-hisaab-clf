@@ -78,6 +78,7 @@ const translations: Record<Language, Record<string, string>> = {
     deleteAccount: "Delete Account",
     deleteAccountWarning: "This action cannot be undone. All your data will be permanently deleted.",
     deleteAccountConfirm: "Are you sure you want to delete your account? This will remove all your income entries, expenses, and profile data permanently.",
+    footerTagline: "Track your tractor earnings digitally",
   },
   as: {
     appName: "সখীৰ হিচাপ",
@@ -156,6 +157,7 @@ const translations: Record<Language, Record<string, string>> = {
     deleteAccount: "একাউণ্ট মচক",
     deleteAccountWarning: "এই কাৰ্য বাতিল কৰিব নোৱাৰি। আপোনাৰ সকলো তথ্য স্থায়ীভাৱে মচি পেলোৱা হ'ব।",
     deleteAccountConfirm: "আপুনি নিশ্চিতভাৱে আপোনাৰ একাউণ্ট মচিবলৈ বিচাৰে নেকি? এইটোৱে আপোনাৰ সকলো আয়ৰ প্ৰবিষ্টি, খৰচ আৰু প্ৰ'ফাইলৰ তথ্য স্থায়ীভাৱে মচি পেলাব।",
+    footerTagline: "ডিজিটেল মাধ্যমৰে ট্ৰেক্টৰৰ উপাৰ্জনৰ হিচাপ ৰাখক",
   },
 };
 
