@@ -40,9 +40,6 @@ export default function RootLayout({
       className={`${dmSerifDisplay.variable} ${hindSiliguri.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <script src="https://js.puter.com/v2/"></script>
-      </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-hind)] bg-[var(--bg-light)] text-[var(--ink)] dark:bg-[var(--ink-dark)] dark:text-white">
         <SupabaseProvider>
           <LangThemeProvider>{children}</LangThemeProvider>

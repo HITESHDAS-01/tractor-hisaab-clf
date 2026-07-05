@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useSupabase } from "@/lib/supabase/provider";
 import { useLangTheme } from "@/lib/lang-theme";
 import { t } from "@/lib/i18n";
-import VoiceInput from "@/components/ui/VoiceInput";
 
 export default function AddIncomePage() {
   const { lang } = useLangTheme();
@@ -76,16 +75,13 @@ export default function AddIncomePage() {
           <label className="block text-sm font-medium mb-1">
             {t("description", lang)}
           </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
-            />
-            <VoiceInput onTranscript={(text) => setDescription((prev) => prev ? `${prev} ${text}` : text)} />
-          </div>
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+          />
         </div>
 
         <div>
@@ -144,45 +140,36 @@ export default function AddIncomePage() {
           <label className="block text-sm font-medium mb-1">
             {t("customerName", lang)}
           </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-              className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
-            />
-            <VoiceInput onTranscript={(text) => setCustomerName((prev) => prev ? `${prev} ${text}` : text)} />
-          </div>
+          <input
+            type="text"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">
             {t("village", lang)}
           </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={village}
-              onChange={(e) => setVillage(e.target.value)}
-              className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
-            />
-            <VoiceInput onTranscript={(text) => setVillage((prev) => prev ? `${prev} ${text}` : text)} />
-          </div>
+          <input
+            type="text"
+            value={village}
+            onChange={(e) => setVillage(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">
             {t("landArea", lang)}
           </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={landArea}
-              onChange={(e) => setLandArea(e.target.value)}
-              className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
-            />
-            <VoiceInput onTranscript={(text) => setLandArea((prev) => prev ? `${prev} ${text}` : text)} />
-          </div>
+          <input
+            type="text"
+            value={landArea}
+            onChange={(e) => setLandArea(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+          />
         </div>
 
         {error && <p className="text-[var(--rust)] text-sm">{error}</p>}
