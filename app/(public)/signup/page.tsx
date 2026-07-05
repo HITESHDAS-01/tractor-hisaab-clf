@@ -43,10 +43,8 @@ export default function SignupPage() {
       setError(error.message);
     } else if (data.user?.identities?.length === 0) {
       setError("An account with this email already exists");
-    } else if (data.session) {
-      router.push("/dashboard");
     } else {
-      setMessage("Account created! Check your email to confirm, then login.");
+      router.push("/login");
     }
     setLoading(false);
   };
