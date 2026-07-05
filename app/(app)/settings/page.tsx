@@ -102,7 +102,6 @@ export default function SettingsPage() {
       </h2>
 
       <div className="bg-card p-4 rounded-xl shadow-sm space-y-3">
-        <h3 className="font-semibold">{t("settings", lang)}</h3>
         <button
           onClick={() => setLang(lang === "en" ? "as" : "en")}
           className="w-full flex justify-between items-center py-2"
