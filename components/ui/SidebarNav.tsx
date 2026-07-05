@@ -71,9 +71,7 @@ export default function SidebarNav() {
     <aside className="hidden md:flex md:flex-col md:w-64 md:fixed md:inset-y-0 bg-[var(--ink)] z-40">
       <div className="flex flex-col h-full">
         <div className="flex items-center gap-3 px-6 h-16 border-b border-white/10">
-          <svg className="w-8 h-8 text-[var(--harvest)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z" />
-          </svg>
+          <img src="/SHlogo.png" alt="Logo" className="w-10 h-10 rounded-lg object-cover" />
           <span className="font-bold font-[family-name:var(--font-dm-serif)] text-white text-lg">
             {t("appName", lang)}
           </span>

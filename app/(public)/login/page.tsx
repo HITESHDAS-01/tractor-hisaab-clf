@@ -66,11 +66,7 @@ export default function LoginPage() {
         <div className="bg-white rounded-3xl shadow-2xl p-8">
           {/* Logo and Title */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-[var(--ink)] rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <svg className="w-9 h-9 text-[var(--harvest)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z" />
-              </svg>
-            </div>
+            <img src="/SHlogo.png" alt="Logo" className="w-20 h-20 rounded-2xl object-cover mx-auto mb-4 shadow-lg" />
             <h1 className="text-3xl font-bold text-[var(--ink)] font-[family-name:var(--font-dm-serif)]">
               {t("login", lang)}
             </h1>
