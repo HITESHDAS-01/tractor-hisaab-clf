@@ -47,7 +47,7 @@ export default function LandingPage() {
           </p>
           <a
             href="/signup"
-            className="inline-block px-8 py-3 bg-[var(--ink)] text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+            className="inline-block px-8 py-3 bg-[#C99A3C] text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
           >
             {t("getStarted", lang)}
           </a>
