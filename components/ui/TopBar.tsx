@@ -15,8 +15,9 @@ export default function TopBar({
   theme: "light" | "dark";
   onToggleTheme: () => void;
 }) {
-  const { supabase } = useSupabase();
+  const { supabase, session } = useSupabase();
   const router = useRouter();
+  const userName = session?.user?.user_metadata?.full_name || session?.user?.email?.split("@")[0] || "";
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -26,9 +27,14 @@ export default function TopBar({
   return (
     <header className="sticky top-0 z-40 bg-[var(--ink)] border-b border-[var(--ink)]">
       <div className="flex justify-between items-center px-4 h-14 max-w-lg mx-auto">
-        <h1 className="text-lg font-bold font-[family-name:var(--font-dm-serif)] text-white">
-          {t("appName", lang)}
-        </h1>
+        <div className="flex flex-col">
+          <h1 className="text-lg font-bold font-[family-name:var(--font-dm-serif)] text-white leading-tight">
+            {t("appName", lang)}
+          </h1>
+          {userName && (
+            <span className="text-white/60 text-xs">{userName}</span>
+          )}
+        </div>
         <div className="flex items-center gap-2">
           <button
             onClick={onToggleLang}

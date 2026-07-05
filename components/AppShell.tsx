@@ -1,12 +1,16 @@
 "use client";
 
 import { useLangTheme } from "@/lib/lang-theme";
+import { useSupabase } from "@/lib/supabase/provider";
+import { t } from "@/lib/i18n";
 import BottomNav from "@/components/ui/BottomNav";
 import SidebarNav from "@/components/ui/SidebarNav";
 import TopBar from "@/components/ui/TopBar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const { lang, setLang, theme, setTheme } = useLangTheme();
+  const { session } = useSupabase();
+  const userName = session?.user?.user_metadata?.full_name || session?.user?.email?.split("@")[0] || "";
 
   return (
     <div className="min-h-screen">
@@ -25,18 +29,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Desktop top bar */}
       <div className="hidden md:block md:ml-64">
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-200 dark:bg-[var(--surface-dark)] dark:border-gray-700">
-          <div className="flex justify-end items-center px-6 h-14">
+        <header className="sticky top-0 z-30 bg-[var(--ink)] border-b border-white/10">
+          <div className="flex justify-between items-center px-6 h-14">
+            <span className="text-white/90 text-sm font-medium">{userName}</span>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setLang(lang === "en" ? "as" : "en")}
-                className="px-4 py-1.5 text-sm font-semibold rounded-full border-2 border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white transition-colors"
+                className="px-4 py-1.5 text-sm font-semibold rounded-full border-2 border-white/40 text-white hover:bg-white/20 transition-colors"
               >
                 {lang === "en" ? "অসমীয়া" : "English"}
               </button>
               <button
                 onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                className="p-2 rounded-full border-2 border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white transition-colors"
+                className="p-2 rounded-full border-2 border-white/40 text-white hover:bg-white/20 transition-colors"
                 title={theme === "light" ? t("darkMode", lang) : t("lightMode", lang)}
               >
                 {theme === "light" ? (
@@ -67,13 +72,4 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   );
-}
-
-function t(key: string, lang: string) {
-  // Inline minimal translation for desktop header
-  const translations: Record<string, Record<string, string>> = {
-    en: { darkMode: "Dark Mode", lightMode: "Light Mode" },
-    as: { darkMode: "আন্ধাৰ ম'ড", lightMode: "পোহৰ ম'ড" },
-  };
-  return translations[lang]?.[key] ?? translations.en[key] ?? key;
 }

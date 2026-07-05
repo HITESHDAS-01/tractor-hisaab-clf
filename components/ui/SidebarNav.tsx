@@ -58,9 +58,10 @@ const navItems = [
 
 export default function SidebarNav() {
   const { lang } = useLangTheme();
-  const { supabase } = useSupabase();
+  const { supabase, session } = useSupabase();
   const pathname = usePathname();
   const router = useRouter();
+  const userName = session?.user?.user_metadata?.full_name || session?.user?.email?.split("@")[0] || "";
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -74,9 +75,14 @@ export default function SidebarNav() {
           <svg className="w-8 h-8 text-[var(--harvest)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z" />
           </svg>
-          <span className="font-bold font-[family-name:var(--font-dm-serif)] text-white text-lg">
-            {t("appName", lang)}
-          </span>
+          <div className="flex flex-col">
+            <span className="font-bold font-[family-name:var(--font-dm-serif)] text-white text-lg leading-tight">
+              {t("appName", lang)}
+            </span>
+            {userName && (
+              <span className="text-white/60 text-xs">{userName}</span>
+            )}
+          </div>
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1">
