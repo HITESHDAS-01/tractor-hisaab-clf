@@ -37,6 +37,7 @@ export default function DashboardPage() {
   const [customStart, setCustomStart] = useState("");
   const [customEnd, setCustomEnd] = useState("");
   const { supabase, session } = useSupabase();
+  const userName = session?.user?.user_metadata?.full_name || session?.user?.email?.split("@")[0] || "";
 
   useEffect(() => {
     if (!session) return;
@@ -155,7 +156,7 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <p className="text-lg text-[var(--text-muted)] mb-1">👋 {t("welcome", lang)}</p>
+          <p className="text-lg text-[var(--text-muted)] mb-1">👋 {t("welcome", lang)}{userName ? `, ${userName}` : ""}</p>
           <h2 className="text-2xl font-bold font-[family-name:var(--font-dm-serif)]">
             {t("dashboard", lang)}
           </h2>
