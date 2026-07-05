@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSupabase } from "@/lib/supabase/provider";
 import { useLangTheme } from "@/lib/lang-theme";
 import { t } from "@/lib/i18n";
+import VoiceInput from "@/components/ui/VoiceInput";
 
 export default function AddExpensePage() {
   const { lang } = useLangTheme();
@@ -64,12 +65,15 @@ export default function AddExpensePage() {
           <label className="block text-sm font-medium mb-1">
             {t("description", lang)}
           </label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            />
+            <VoiceInput onTranscript={(text) => setDescription((prev) => prev ? `${prev} ${text}` : text)} />
+          </div>
         </div>
 
         <div>
