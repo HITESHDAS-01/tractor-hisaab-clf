@@ -52,10 +52,10 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-[var(--ink)] via-[#3a5f4e] to-[var(--ink-dark)]">
-      <div className="w-full max-w-md">
+    <div className="h-screen flex items-center justify-center p-4 bg-gradient-to-br from-[var(--ink)] via-[#3a5f4e] to-[var(--ink-dark)] overflow-hidden">
+      <div className="w-full max-w-md max-h-full overflow-auto">
         {/* Header with toggles */}
-        <div className="flex justify-end gap-2 mb-4">
+        <div className="flex justify-end gap-2 mb-3">
           <button
             onClick={() => setLang(lang === "en" ? "as" : "en")}
             className="px-3 py-1 text-sm rounded-full border border-white/30 text-white hover:bg-white/20 transition-colors"
@@ -80,21 +80,21 @@ export default function SignupPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
+        <div className="bg-white rounded-3xl shadow-2xl p-6">
           {/* Logo and Title */}
-          <div className="text-center mb-8">
-            <img src="/SHlogo.png" alt="Logo" className="w-24 h-24 rounded-2xl object-contain mx-auto mb-4 shadow-lg" />
-            <h1 className="text-3xl font-bold text-[var(--ink)] font-[family-name:var(--font-dm-serif)]">
+          <div className="text-center mb-5">
+            <img src="/SHlogo.png" alt="Logo" className="w-16 h-16 rounded-xl object-contain mx-auto mb-3 shadow-lg" />
+            <h1 className="text-2xl font-bold text-[var(--ink)] font-[family-name:var(--font-dm-serif)]">
               {t("signup", lang)}
             </h1>
-            <p className="text-[var(--text-muted)] mt-1">
+            <p className="text-sm text-[var(--text-muted)] mt-0.5">
               {t("appName", lang)}
             </p>
           </div>
 
-          <form onSubmit={handleSignup} className="space-y-4">
+          <form onSubmit={handleSignup} className="space-y-3">
             <div>
-              <label className="block text-sm font-semibold text-[var(--ink)] mb-2">
+              <label className="block text-sm font-semibold text-[var(--ink)] mb-1.5">
                 {t("fullName", lang)}
               </label>
               <input
@@ -102,13 +102,13 @@ export default function SignupPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all"
+                className="w-full px-3 py-2.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all text-sm"
                 placeholder="Ramesh Das"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[var(--ink)] mb-2">
+              <label className="block text-sm font-semibold text-[var(--ink)] mb-1.5">
                 {t("email", lang)}
               </label>
               <input
@@ -116,13 +116,13 @@ export default function SignupPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all"
+                className="w-full px-3 py-2.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all text-sm"
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[var(--ink)] mb-2">
+              <label className="block text-sm font-semibold text-[var(--ink)] mb-1.5">
                 {t("password", lang)}
               </label>
               <input
@@ -130,13 +130,13 @@ export default function SignupPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all"
+                className="w-full px-3 py-2.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all text-sm"
                 placeholder="••••••••"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[var(--ink)] mb-2">
+              <label className="block text-sm font-semibold text-[var(--ink)] mb-1.5">
                 {t("confirmPassword", lang)}
               </label>
               <input
@@ -144,19 +144,19 @@ export default function SignupPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all"
+                className="w-full px-3 py-2.5 rounded-xl border-2 border-gray-200 bg-gray-50 focus:border-[var(--harvest)] focus:bg-white focus:ring-0 outline-none transition-all text-sm"
                 placeholder="••••••••"
               />
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl">
+              <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2 rounded-xl">
                 {error}
               </div>
             )}
 
             {message && (
-              <div className="bg-green-50 border border-green-200 text-green-600 text-sm px-4 py-3 rounded-xl space-y-2">
+              <div className="bg-green-50 border border-green-200 text-green-600 text-sm px-3 py-2 rounded-xl space-y-1">
                 <p>{message}</p>
                 <Link href="/login" className="inline-block font-semibold underline hover:text-green-700">
                   {t("login", lang)} →
@@ -167,13 +167,13 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 bg-gradient-to-r from-[var(--ink)] to-[#3a5f4e] text-white rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-50 shadow-lg shadow-[var(--ink)]/30"
+              className="w-full py-3 bg-gradient-to-r from-[var(--ink)] to-[#3a5f4e] text-white rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-50 shadow-lg shadow-[var(--ink)]/30"
             >
               {loading ? "..." : t("signup", lang)}
             </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-4 text-center">
             <p className="text-sm text-[var(--text-muted)]">
               {t("login", lang)}?{" "}
               <Link href="/login" className="text-[var(--harvest)] font-semibold hover:underline">
@@ -184,7 +184,7 @@ export default function SignupPage() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-white/60 text-xs mt-6">
+        <p className="text-center text-white/60 text-xs mt-4">
           {t("footerTagline", lang)}
         </p>
       </div>
