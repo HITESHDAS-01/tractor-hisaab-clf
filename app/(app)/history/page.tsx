@@ -57,6 +57,9 @@ export default function HistoryPage() {
           .order("entry_date", { ascending: false }),
       ]);
 
+      if (incomeRes.error) console.error("Income query error:", incomeRes.error);
+      if (expenseRes.error) console.error("Expense query error:", expenseRes.error);
+
       const allEntries: Entry[] = [
         ...(incomeRes.data || []).map((e) => ({ ...e, type: "income" as const })),
         ...(expenseRes.data || []).map((e) => ({ ...e, type: "expense" as const })),
@@ -92,13 +95,17 @@ export default function HistoryPage() {
   });
 
   const handleDelete = async (entry: Entry) => {
-    if (!confirm("Delete this entry?")) return;
+    const msg = lang === "en" ? "Delete this entry?" : "এই প্ৰবিষ্টি মচি পেলাবলৈ নেকি?";
+    if (!confirm(msg)) return;
 
     const table =
       entry.type === "income" ? "income_entries" : "expense_entries";
     const { error } = await supabase.from(table).delete().eq("id", entry.id);
 
-    if (!error) {
+    if (error) {
+      const errMsg = lang === "en" ? "Failed to delete entry" : "প্ৰবিষ্টি মচিবলৈ ব্যৰ্থ";
+      alert(errMsg);
+    } else {
       setEntries(entries.filter((e) => e.id !== entry.id));
     }
   };
@@ -135,7 +142,10 @@ export default function HistoryPage() {
       .update(updateData)
       .eq("id", editingEntry.id);
 
-    if (!error) {
+    if (error) {
+      const errMsg = lang === "en" ? "Failed to save changes" : "পৰিবৰ্তন সংৰক্ষণ কৰিবলৈ ব্যৰ্থ";
+      alert(errMsg);
+    } else {
       setEntries(
         entries.map((e) =>
           e.id === editingEntry.id
@@ -151,7 +161,7 @@ export default function HistoryPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-muted-dark">Loading...</div>
+        <div className="text-muted-dark">{t("loading", lang)}...</div>
       </div>
     );
   }

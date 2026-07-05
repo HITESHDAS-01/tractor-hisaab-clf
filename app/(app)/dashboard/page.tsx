@@ -15,6 +15,7 @@ type IncomeEntry = {
   payment_mode: string;
   customer_name: string | null;
   village: string | null;
+  land_area: string | null;
 };
 
 type ExpenseEntry = {
@@ -83,13 +84,16 @@ export default function DashboardPage() {
           .order("entry_date", { ascending: false }),
       ]);
 
+      if (incomeRes.error) console.error("Income query error:", incomeRes.error);
+      if (expenseRes.error) console.error("Expense query error:", expenseRes.error);
+
       setIncomeEntries(incomeRes.data || []);
       setExpenseEntries(expenseRes.data || []);
       setLoading(false);
     };
 
     fetchData();
-  }, [session, dateRange, customStart, supabase]);
+  }, [session, dateRange, customStart, customEnd, supabase]);
 
   const totalIncome = incomeEntries.reduce((sum, e) => sum + e.total_amount, 0);
   const totalReceived = incomeEntries.reduce(
@@ -142,7 +146,7 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-muted-dark">Loading...</div>
+        <div className="text-muted-dark">{t("loading", lang)}...</div>
       </div>
     );
   }

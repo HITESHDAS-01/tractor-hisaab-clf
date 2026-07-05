@@ -10,7 +10,7 @@ export default function AddPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <h2 className="text-2xl font-bold font-[family-name:var(--font-dm-serif)]">
-        {lang === "en" ? "Add Entry" : "প্ৰবিষ্টি যোগ কৰক"}
+        {t("addEntry", lang)}
       </h2>
 
       <Link
@@ -26,9 +26,7 @@ export default function AddPage() {
           <div>
             <h3 className="text-lg font-semibold">{t("addIncome", lang)}</h3>
             <p className="text-sm text-muted-dark">
-              {lang === "en"
-                ? "Record plowing service payment"
-                : "হল চাষৰ সেৱাৰ পৰিশোধ লগ কৰক"}
+              {t("plowingService", lang)}
             </p>
           </div>
           <svg className="w-5 h-5 text-muted-dark ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,9 +48,7 @@ export default function AddPage() {
           <div>
             <h3 className="text-lg font-semibold">{t("addExpense", lang)}</h3>
             <p className="text-sm text-muted-dark">
-              {lang === "en"
-                ? "Log fuel, driver, or repair cost"
-                : "জ্বালানী, চালক বা মেৰামতি খৰচ লগ কৰক"}
+              {t("logExpenses", lang)}
             </p>
           </div>
           <svg className="w-5 h-5 text-muted-dark ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">

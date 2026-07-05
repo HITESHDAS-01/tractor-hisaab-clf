@@ -20,17 +20,19 @@ export function LangThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (session) {
-      supabase
-        .from("profiles")
-        .select("preferred_language, theme_preference")
-        .eq("id", session.user.id)
-        .single()
-        .then(({ data }) => {
+      (async () => {
+        try {
+          const { data } = await supabase
+            .from("profiles")
+            .select("preferred_language, theme_preference")
+            .eq("id", session.user.id)
+            .single();
           if (data) {
             setLangState(data.preferred_language as Language);
             setThemeState(data.theme_preference as "light" | "dark");
           }
-        });
+        } catch {}
+      })();
     }
   }, [session, supabase]);
 
@@ -45,20 +47,22 @@ export function LangThemeProvider({ children }: { children: React.ReactNode }) {
   const setLang = async (l: Language) => {
     setLangState(l);
     if (session) {
-      await supabase
+      const { error } = await supabase
         .from("profiles")
         .update({ preferred_language: l })
         .eq("id", session.user.id);
+      if (error) console.error("Failed to save language:", error);
     }
   };
 
   const setTheme = async (t: "light" | "dark") => {
     setThemeState(t);
     if (session) {
-      await supabase
+      const { error } = await supabase
         .from("profiles")
         .update({ theme_preference: t })
         .eq("id", session.user.id);
+      if (error) console.error("Failed to save theme:", error);
     }
   };
 

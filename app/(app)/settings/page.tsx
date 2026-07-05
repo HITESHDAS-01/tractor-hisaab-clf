@@ -19,14 +19,16 @@ export default function SettingsPage() {
   useEffect(() => {
     if (session) {
       setEmail(session.user.email || "");
-      supabase
-        .from("profiles")
-        .select("full_name")
-        .eq("id", session.user.id)
-        .single()
-        .then(({ data }) => {
+      (async () => {
+        try {
+          const { data } = await supabase
+            .from("profiles")
+            .select("full_name")
+            .eq("id", session.user.id)
+            .single();
           if (data) setFullName(data.full_name || "");
-        });
+        } catch {}
+      })();
     }
   }, [session, supabase]);
 
@@ -44,7 +46,7 @@ export default function SettingsPage() {
     if (error) {
       setError(error.message);
     } else {
-      setMessage("Profile updated");
+      setMessage(t("profileUpdated", lang));
     }
     setLoading(false);
   };
@@ -62,7 +64,7 @@ export default function SettingsPage() {
     if (error) {
       setError(error.message);
     } else {
-      setMessage("Password updated");
+      setMessage(t("passwordUpdated", lang));
       setNewPassword("");
     }
     setLoading(false);
