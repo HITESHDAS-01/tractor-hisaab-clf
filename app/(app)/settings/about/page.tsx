@@ -17,14 +17,14 @@ export default function AboutPage() {
         <p className="text-muted-dark">
           {lang === "en"
             ? "A digital ledger for tractor owners to track income from field plowing services and expenses, replacing the traditional paper notebook."
-            : "হল চাষৰ সেৱাৰ পৰা আয় আৰু খৰচ ট্ৰেক কৰিবলৈ ট্ৰেক্টৰ মালিকৰ বাবে এটা ডিজিটেল খাতা, পৰম্পৰাগত কাগজৰ খাতাৰ সলনি।"}
+            : "ট্ৰেক্টৰ মালিকসকলৰ বাবে পথাৰ চহোৱা উপাৰ্জন আৰু খৰচৰ হিচাপ ৰাখিবলৈ এখন ডিজিটেল বহী, যি পৰম্পৰাগত কাগজৰ বহীৰ উত্তম বিকল্প।"}
         </p>
         <div className="pt-4 border-t border-dark space-y-2">
           <p className="text-sm text-muted-dark">
             {t("version", lang)}: 1.0.0
           </p>
           <p className="text-sm text-muted-dark">
-            {lang === "en" ? "Developed by" : "উন্নয়নকৰ্তা"}: <span className="font-semibold text-[var(--ink)]">Pranjit Das</span>
+            {lang === "en" ? "Developed by" : "নিৰ্মাণ কৰিছে"}: <span className="font-semibold text-[var(--ink)]">Pranjit Das</span>
           </p>
         </div>
       </div>

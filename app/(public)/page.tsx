@@ -64,7 +64,7 @@ export default function LandingPage() {
             <p className="text-sm text-muted-dark">
               {lang === "en"
                 ? "Track all plowing income in one place"
-                : "সকলো হল চাষৰ আয় এটাত ট্ৰেক কৰক"}
+                : "পথাৰ চহোৱাৰ সকলো আয়ৰ হিচাপ একে ঠাইতে ৰাখক"}
             </p>
           </div>
 
@@ -78,7 +78,7 @@ export default function LandingPage() {
             <p className="text-sm text-muted-dark">
               {lang === "en"
                 ? "Log fuel, driver, and maintenance costs"
-                : "জ্বালানী, চালক আৰু মেৰামতি খৰচ লগ কৰক"}
+                : "ইন্ধন, চালক আৰু মেৰামতিৰ খৰচ লিখি ৰাখক"}
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function LandingPage() {
             <p className="text-sm text-muted-dark">
               {lang === "en"
                 ? "Know who owes you money"
-                : "কোনে আপোনাক ধন দিব পৰা জানক"}
+                : "কাৰ পৰা ধন পাবলৈ বাকী আছে জানক"}
             </p>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function LandingPage() {
           <p className="text-muted-dark mb-4">
             {lang === "en"
               ? "Already have an account?"
-              : "ইতিমধ্যে এটা একাউণ্ট আছে?"}
+              : "ইতিমধ্যে একাউণ্ট আছে নেকি?"}
           </p>
           <a
             href="/login"

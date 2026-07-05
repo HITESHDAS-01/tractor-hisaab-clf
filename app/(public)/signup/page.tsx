@@ -26,7 +26,7 @@ export default function SignupPage() {
     setMessage("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(lang === "en" ? "Passwords do not match" : "পাছৱৰ্ড মিলা নাই");
       setLoading(false);
       return;
     }
@@ -42,11 +42,11 @@ export default function SignupPage() {
     if (error) {
       setError(error.message);
     } else if (data.user?.identities?.length === 0) {
-      setError("An account with this email already exists");
+      setError(lang === "en" ? "An account with this email already exists" : "এই ইমেইলৰ সৈতে ইতিমধ্যে এটা একাউণ্ট খোলা আছে");
     } else {
       setMessage(lang === "en"
         ? "Account created! Check your email to confirm, then login."
-        : "একাউণ্ট সৃষ্টি কৰা হৈছে! নিশ্চিত কৰিবলৈ ইমেইল পুৱাই চাওক, তাৰপিছত লগইন কৰক।");
+        : "একাউণ্ট খোলা হ'ল! নিশ্চিত কৰিবলৈ আপোনাৰ ইমেইল চাওক আৰু তাৰ পিছত লগ ইন কৰক।");
     }
     setLoading(false);
   };
