@@ -42,8 +42,8 @@ export default function HelpPage() {
         </h3>
         <p className="text-muted-dark">
           {lang === "en"
-            ? "For support, please contact us at support@tractorhisaab.com"
-            : "সহায়ৰ বাবে অনুগ্ৰহ কৰি support@tractorhisaab.com ত আমাৰ সৈতে যোগাযোগ কৰক"}
+            ? "For support, please contact us through the app."
+            : "সহায়ৰ বাবে অনুগ্ৰহ কৰি এপ্পটোৰ জৰিয়তে আমাৰ সৈতে যোগাযোগ কৰক।"}
         </p>
       </div>
     </div>
