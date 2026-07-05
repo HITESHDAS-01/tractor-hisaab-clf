@@ -66,7 +66,7 @@ export default function LoginPage() {
         <div className="bg-white rounded-3xl shadow-2xl p-8">
           {/* Logo and Title */}
           <div className="text-center mb-8">
-            <img src="/SHlogo.png" alt="Logo" className="w-20 h-20 rounded-2xl object-cover mx-auto mb-4 shadow-lg" />
+            <img src="/SHlogo.png" alt="Logo" className="w-24 h-24 rounded-2xl object-contain mx-auto mb-4 shadow-lg" />
             <h1 className="text-3xl font-bold text-[var(--ink)] font-[family-name:var(--font-dm-serif)]">
               {t("login", lang)}
             </h1>
