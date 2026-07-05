@@ -52,8 +52,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center p-4 bg-gradient-to-br from-[var(--ink)] via-[#3a5f4e] to-[var(--ink-dark)] overflow-hidden">
-      <div className="w-full max-w-md max-h-full overflow-auto">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-[var(--ink)] via-[#3a5f4e] to-[var(--ink-dark)]">
+      <div className="w-full max-w-sm">
         {/* Header with toggles */}
         <div className="flex justify-end gap-2 mb-3">
           <button
