@@ -2,7 +2,7 @@ export type Language = "en" | "as";
 
 const translations: Record<Language, Record<string, string>> = {
   en: {
-    appName: "Tractor Seva Hisaab",
+    appName: "Sakhir Hichap",
     dashboard: "Dashboard",
     addIncome: "Add Income",
     addExpense: "Add Expense",
@@ -76,7 +76,7 @@ const translations: Record<Language, Record<string, string>> = {
     editFailed: "Failed to save changes",
   },
   as: {
-    appName: "ট্ৰেক্টৰ সেৱা হিচাব",
+    appName: "Sakhir Hichap",
     dashboard: "ডেচব'ৰ্ড",
     addIncome: "আয় যোগ কৰক",
     addExpense: "খৰচ যোগ কৰক",
