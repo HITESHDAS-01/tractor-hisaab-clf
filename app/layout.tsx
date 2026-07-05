@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: "Sakhir Hichap",
   description: "Track your tractor income and expenses",
   icons: {
-    icon: "/SHlogo.png",
+    icon: "/favicon.svg",
   },
 };
 
