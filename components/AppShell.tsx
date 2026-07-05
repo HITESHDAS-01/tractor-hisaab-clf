@@ -1,7 +1,6 @@
 "use client";
 
 import { useLangTheme } from "@/lib/lang-theme";
-import { useSupabase } from "@/lib/supabase/provider";
 import { t } from "@/lib/i18n";
 import BottomNav from "@/components/ui/BottomNav";
 import SidebarNav from "@/components/ui/SidebarNav";
@@ -9,8 +8,6 @@ import TopBar from "@/components/ui/TopBar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const { lang, setLang, theme, setTheme } = useLangTheme();
-  const { session } = useSupabase();
-  const userName = session?.user?.user_metadata?.full_name || session?.user?.email?.split("@")[0] || "";
 
   return (
     <div className="min-h-screen">
@@ -30,8 +27,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* Desktop top bar */}
       <div className="hidden md:block md:ml-64">
         <header className="sticky top-0 z-30 bg-[var(--ink)] border-b border-white/10">
-          <div className="flex justify-between items-center px-6 h-14">
-            <span className="text-white/90 text-sm font-medium">{userName}</span>
+          <div className="flex justify-end items-center px-6 h-14">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setLang(lang === "en" ? "as" : "en")}

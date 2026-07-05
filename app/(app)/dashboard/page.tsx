@@ -154,9 +154,12 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold font-[family-name:var(--font-dm-serif)]">
-          {t("dashboard", lang)}
-        </h2>
+        <div>
+          <p className="text-lg text-[var(--text-muted)] mb-1">👋 {t("welcome", lang)}</p>
+          <h2 className="text-2xl font-bold font-[family-name:var(--font-dm-serif)]">
+            {t("dashboard", lang)}
+          </h2>
+        </div>
         <select
           value={dateRange}
           onChange={(e) => setDateRange(e.target.value as DateRange)}
