@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #2F4A3B;
+  --ink-dark: #141C17;
+  --harvest: #C99A3C;
+  --rust: #A8503F;
+  --bg-light: #F6F4EE;
+  --surface-light: #FFFFFF;
+  --surface-dark: #1E2A22;
+  --text-muted: #6B7A70;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-dark: var(--ink-dark);
+  --color-harvest: var(--harvest);
+  --color-rust: var(--rust);
+  --color-bg-light: var(--bg-light);
+  --color-surface-light: var(--surface-light);
+  --color-surface-dark: var(--surface-dark);
+  --color-text-muted: var(--text-muted);
+  --font-dm-serif: var(--font-dm-serif);
+  --font-hind: var(--font-hind);
+  --font-jetbrains: var(--font-jetbrains);
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--ink);
+  font-family: var(--font-hind), sans-serif;
+}
+
+.dark body,
+body.dark {
+  background: var(--ink-dark);
+  color: white;
+}
