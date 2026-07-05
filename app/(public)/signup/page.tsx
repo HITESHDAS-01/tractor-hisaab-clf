@@ -44,7 +44,9 @@ export default function SignupPage() {
     } else if (data.user?.identities?.length === 0) {
       setError("An account with this email already exists");
     } else {
-      router.push("/login");
+      setMessage(lang === "en"
+        ? "Account created! Check your email to confirm, then login."
+        : "একাউণ্ট সৃষ্টি কৰা হৈছে! নিশ্চিত কৰিবলৈ ইমেইল পুৱাই চাওক, তাৰপিছত লগইন কৰক।");
     }
     setLoading(false);
   };
@@ -158,8 +160,11 @@ export default function SignupPage() {
             )}
 
             {message && (
-              <div className="bg-green-50 border border-green-200 text-green-600 text-sm px-4 py-3 rounded-xl">
-                {message}
+              <div className="bg-green-50 border border-green-200 text-green-600 text-sm px-4 py-3 rounded-xl space-y-2">
+                <p>{message}</p>
+                <Link href="/login" className="inline-block font-semibold underline hover:text-green-700">
+                  {t("login", lang)} →
+                </Link>
               </div>
             )}
 
