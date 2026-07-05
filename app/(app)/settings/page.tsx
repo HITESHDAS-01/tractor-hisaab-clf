@@ -5,6 +5,7 @@ import { useSupabase } from "@/lib/supabase/provider";
 import { useLangTheme } from "@/lib/lang-theme";
 import { t } from "@/lib/i18n";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SettingsPage() {
   const { lang, setLang, theme, setTheme } = useLangTheme();
@@ -14,7 +15,11 @@ export default function SettingsPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState("");
+  const [deleting, setDeleting] = useState(false);
   const { supabase, session } = useSupabase();
+  const router = useRouter();
 
   useEffect(() => {
     if (session) {
@@ -68,6 +73,26 @@ export default function SettingsPage() {
       setNewPassword("");
     }
     setLoading(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    if (deleteConfirm !== "DELETE") return;
+    setDeleting(true);
+    setError("");
+
+    try {
+      // Delete user data
+      await supabase.from("income_entries").delete().eq("owner_id", session?.user.id);
+      await supabase.from("expense_entries").delete().eq("owner_id", session?.user.id);
+      await supabase.from("profiles").delete().eq("id", session?.user.id);
+
+      // Sign out
+      await supabase.auth.signOut();
+      router.push("/login");
+    } catch (err) {
+      setError(lang === "en" ? "Failed to delete account" : "একাউণ্ট মচিবলৈ ব্যৰ্থ");
+      setDeleting(false);
+    }
   };
 
   return (
@@ -157,6 +182,64 @@ export default function SettingsPage() {
           {t("help", lang)}
         </Link>
       </div>
+
+      {/* Delete Account Section */}
+      <div className="bg-red-50 border border-red-200 p-4 rounded-xl shadow-sm">
+        <h3 className="font-semibold text-red-800 mb-2">{t("deleteAccount", lang)}</h3>
+        <p className="text-sm text-red-600 mb-3">
+          {t("deleteAccountWarning", lang)}
+        </p>
+        <button
+          onClick={() => setShowDeleteModal(true)}
+          className="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors"
+        >
+          {t("deleteAccount", lang)}
+        </button>
+      </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4">
+            <h3 className="text-xl font-bold text-red-600 mb-2">
+              {t("deleteAccount", lang)}?
+            </h3>
+            <p className="text-gray-600 mb-4">
+              {t("deleteAccountConfirm", lang)}
+            </p>
+            <p className="text-sm text-gray-500 mb-4">
+              {lang === "en"
+                ? 'Type "DELETE" to confirm:'
+                : 'নিশ্চিত কৰিবলৈ "DELETE" টাইপ কৰক:'}
+            </p>
+            <input
+              type="text"
+              value={deleteConfirm}
+              onChange={(e) => setDeleteConfirm(e.target.value)}
+              placeholder="DELETE"
+              className="w-full px-4 py-3 rounded-lg border-2 border-red-300 focus:border-red-500 outline-none mb-4"
+            />
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setDeleteConfirm("");
+                }}
+                className="flex-1 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-50"
+              >
+                {t("cancel", lang)}
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleteConfirm !== "DELETE" || deleting}
+                className="flex-1 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deleting ? "..." : t("delete", lang)}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
