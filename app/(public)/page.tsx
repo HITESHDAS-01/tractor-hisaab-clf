@@ -39,7 +39,7 @@ export default function LandingPage() {
 
       <main className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-[family-name:var(--font-dm-serif)]">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-[family-name:var(--font-dm-serif)]">
             {t("landingTitle", lang)}
           </h2>
           <p className="text-lg text-muted-dark mb-8">
