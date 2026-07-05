@@ -22,8 +22,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tractor Seva Hisaab",
+  title: "Sakhir Hichap",
   description: "Track your tractor income and expenses",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
