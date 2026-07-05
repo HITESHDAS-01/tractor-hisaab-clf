@@ -188,23 +188,23 @@ export default function DashboardPage() {
 
       {/* 4 Summary Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-card p-4 rounded-xl shadow-sm">
-          <p className="text-sm text-muted-dark">{t("totalIncome", lang)}</p>
-          <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-[var(--harvest)]">
+        <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl shadow-sm">
+          <p className="text-sm font-medium text-amber-800">{t("totalIncome", lang)}</p>
+          <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-amber-700">
             ₹{totalIncome.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
         </div>
-        <div className="bg-card p-4 rounded-xl shadow-sm">
-          <p className="text-sm text-muted-dark">{t("totalExpense", lang)}</p>
-          <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-[var(--rust)]">
+        <div className="bg-red-50 border border-red-100 p-4 rounded-xl shadow-sm">
+          <p className="text-sm font-medium text-red-800">{t("totalExpense", lang)}</p>
+          <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-red-600">
             ₹{totalExpense.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
         </div>
-        <div className="bg-card p-4 rounded-xl shadow-sm">
-          <p className="text-sm text-muted-dark">{t("netProfit", lang)}</p>
+        <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-xl shadow-sm">
+          <p className="text-sm font-medium text-emerald-800">{t("netProfit", lang)}</p>
           <p
             className={`text-2xl font-bold font-[family-name:var(--font-jetbrains)] ${
-              netProfit >= 0 ? "text-[var(--ink)]" : "text-[var(--rust)]"
+              netProfit >= 0 ? "text-emerald-700" : "text-red-600"
             }`}
           >
             ₹{netProfit.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
@@ -212,7 +212,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Pending Balance — Torn Ledger Corner Card */}
-        <div className="relative bg-card rounded-xl shadow-sm overflow-hidden">
+        <div className="relative bg-orange-50 border border-orange-100 rounded-xl shadow-sm overflow-hidden">
           {/* Clean paper fold corner */}
           <div className="absolute top-0 right-0 w-0 h-0" style={{
             borderStyle: "solid",
@@ -232,8 +232,8 @@ export default function DashboardPage() {
             </svg>
           </div>
           <div className="p-4">
-            <p className="text-sm text-muted-dark">{t("pendingBalance", lang)}</p>
-            <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-[var(--rust)]">
+            <p className="text-sm font-medium text-orange-800">{t("pendingBalance", lang)}</p>
+            <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-orange-600">
               ₹{pendingBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
             </p>
           </div>
@@ -243,10 +243,10 @@ export default function DashboardPage() {
       {/* Charts row - side by side on desktop */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Expense Breakdown Bar Chart */}
-      <div className="bg-card p-4 rounded-xl shadow-sm">
-        <h3 className="font-semibold mb-3">{t("expenseBreakdown", lang)}</h3>
+      <div className="bg-slate-50 border border-slate-100 p-5 rounded-xl shadow-sm">
+        <h3 className="font-semibold text-slate-800 mb-3">{t("expenseBreakdown", lang)}</h3>
         {Object.keys(expenseByCategory).length === 0 ? (
-          <p className="text-sm text-muted-dark text-center py-4">{t("noEntriesYet", lang)}</p>
+          <p className="text-sm text-slate-500 text-center py-4">{t("noEntriesYet", lang)}</p>
         ) : (
           <div className="space-y-3">
             {Object.entries(expenseByCategory)
@@ -274,10 +274,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Income vs Expense Trend */}
-      <div className="bg-card p-4 rounded-xl shadow-sm">
-        <h3 className="font-semibold mb-3">{t("incomeVsExpense", lang)}</h3>
+      <div className="bg-indigo-50 border border-indigo-100 p-5 rounded-xl shadow-sm">
+        <h3 className="font-semibold text-indigo-800 mb-3">{t("incomeVsExpense", lang)}</h3>
         {trendDays.length === 0 ? (
-          <p className="text-sm text-muted-dark text-center py-4">{t("noEntriesYet", lang)}</p>
+          <p className="text-sm text-indigo-500 text-center py-4">{t("noEntriesYet", lang)}</p>
         ) : (
           <>
             <div className="flex items-end gap-1 h-40">
@@ -323,24 +323,24 @@ export default function DashboardPage() {
       {/* Lists row - side by side on desktop */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Pending Payments */}
-      <div className="bg-card p-4 rounded-xl shadow-sm">
-        <h3 className="font-semibold mb-3">{t("pendingPayments", lang)}</h3>
+      <div className="bg-rose-50 border border-rose-100 p-5 rounded-xl shadow-sm">
+        <h3 className="font-semibold text-rose-800 mb-3">{t("pendingPayments", lang)}</h3>
         {pendingPayments.length === 0 ? (
-          <p className="text-sm text-muted-dark text-center py-4">{t("noEntriesYet", lang)}</p>
+          <p className="text-sm text-rose-500 text-center py-4">{t("noEntriesYet", lang)}</p>
         ) : (
           <div className="space-y-2">
             {pendingPayments.slice(0, 5).map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center py-2 border-b border-dark last:border-0"
+                className="flex justify-between items-center py-2 border-b border-rose-200 last:border-0"
               >
                 <div>
-                  <p className="font-medium">
+                  <p className="font-medium text-rose-900">
                     {entry.customer_name || entry.description}
                   </p>
-                  <p className="text-xs text-muted-dark">{entry.village}</p>
+                  <p className="text-xs text-rose-600">{entry.village}</p>
                 </div>
-                <span className="font-[family-name:var(--font-jetbrains)] text-[var(--rust)]">
+                <span className="font-[family-name:var(--font-jetbrains)] text-rose-700 font-semibold">
                   ₹{entry.balance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                 </span>
               </div>
@@ -350,28 +350,28 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Transactions */}
-      <div className="bg-card p-4 rounded-xl shadow-sm">
-        <h3 className="font-semibold mb-3">{t("recentTransactions", lang)}</h3>
+      <div className="bg-violet-50 border border-violet-100 p-5 rounded-xl shadow-sm">
+        <h3 className="font-semibold text-violet-800 mb-3">{t("recentTransactions", lang)}</h3>
         {recentTransactions.length === 0 ? (
-          <p className="text-sm text-muted-dark text-center py-4">{t("noEntriesYet", lang)}</p>
+          <p className="text-sm text-violet-500 text-center py-4">{t("noEntriesYet", lang)}</p>
         ) : (
           <div className="space-y-2">
             {recentTransactions.map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center py-2 border-b border-dark last:border-0"
+                className="flex justify-between items-center py-2 border-b border-violet-200 last:border-0"
               >
                 <div>
-                  <p className="font-medium">
+                  <p className="font-medium text-violet-900">
                     {entry.type === "income"
                       ? (entry as IncomeEntry).customer_name || entry.description
                       : entry.description || t((entry as ExpenseEntry).category, lang)}
                   </p>
-                  <p className="text-xs text-muted-dark">{entry.entry_date}</p>
+                  <p className="text-xs text-violet-600">{entry.entry_date}</p>
                 </div>
                 <span
-                  className={`font-[family-name:var(--font-jetbrains)] ${
-                    entry.type === "income" ? "text-[var(--harvest)]" : "text-[var(--rust)]"
+                  className={`font-[family-name:var(--font-jetbrains)] font-semibold ${
+                    entry.type === "income" ? "text-emerald-700" : "text-rose-600"
                   }`}
                 >
                   {entry.type === "income" ? "+" : "-"}₹
