@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Serif_Display, Hind_Siliguri, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SupabaseProvider from "@/lib/supabase/provider";
+import { LangThemeProvider } from "@/lib/lang-theme";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -37,7 +38,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-[family-name:var(--font-hind)] bg-[var(--bg-light)] text-[var(--ink)] dark:bg-[var(--ink-dark)] dark:text-white">
-        <SupabaseProvider>{children}</SupabaseProvider>
+        <SupabaseProvider>
+          <LangThemeProvider>{children}</LangThemeProvider>
+        </SupabaseProvider>
       </body>
     </html>
   );

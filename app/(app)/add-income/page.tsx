@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSupabase } from "@/lib/supabase/provider";
-import { t, type Language } from "@/lib/i18n";
+import { useLangTheme } from "@/lib/lang-theme";
+import { t } from "@/lib/i18n";
 
 export default function AddIncomePage() {
-  const [lang] = useState<Language>("en");
+  const { lang } = useLangTheme();
   const [entryDate, setEntryDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -51,8 +52,8 @@ export default function AddIncomePage() {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-6 font-[family-name:var(--font-dm-serif)] text-[var(--ink)]">
+    <div className="max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-6 font-[family-name:var(--font-dm-serif)]">
         {t("addIncome", lang)}
       </h2>
 
@@ -66,7 +67,7 @@ export default function AddIncomePage() {
             value={entryDate}
             onChange={(e) => setEntryDate(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           />
         </div>
 
@@ -79,7 +80,7 @@ export default function AddIncomePage() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           />
         </div>
 
@@ -93,7 +94,7 @@ export default function AddIncomePage() {
             value={totalAmount}
             onChange={(e) => setTotalAmount(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none font-[family-name:var(--font-jetbrains)]"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none font-[family-name:var(--font-jetbrains)]"
           />
         </div>
 
@@ -106,12 +107,12 @@ export default function AddIncomePage() {
             step="0.01"
             value={amountReceived}
             onChange={(e) => setAmountReceived(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none font-[family-name:var(--font-jetbrains)]"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none font-[family-name:var(--font-jetbrains)]"
           />
         </div>
 
         <div className="p-4 bg-[var(--harvest)]/10 rounded-lg">
-          <span className="text-sm text-[var(--text-muted)]">
+          <span className="text-sm text-muted-dark">
             {t("balance", lang)}:
           </span>
           <span className="ml-2 text-xl font-bold font-[family-name:var(--font-jetbrains)] text-[var(--harvest)]">
@@ -126,7 +127,7 @@ export default function AddIncomePage() {
           <select
             value={paymentMode}
             onChange={(e) => setPaymentMode(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           >
             <option value="cash">{t("cash", lang)}</option>
             <option value="upi">{t("upi", lang)}</option>
@@ -143,7 +144,7 @@ export default function AddIncomePage() {
             type="text"
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           />
         </div>
 
@@ -155,7 +156,7 @@ export default function AddIncomePage() {
             type="text"
             value={village}
             onChange={(e) => setVillage(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           />
         </div>
 
@@ -167,7 +168,7 @@ export default function AddIncomePage() {
             type="text"
             value={landArea}
             onChange={(e) => setLandArea(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           />
         </div>
 

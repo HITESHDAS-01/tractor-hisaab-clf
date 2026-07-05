@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSupabase } from "@/lib/supabase/provider";
-import { t, type Language } from "@/lib/i18n";
+import { useLangTheme } from "@/lib/lang-theme";
+import { t } from "@/lib/i18n";
 
 export default function AddExpensePage() {
-  const [lang] = useState<Language>("en");
+  const { lang } = useLangTheme();
   const [entryDate, setEntryDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -40,8 +41,8 @@ export default function AddExpensePage() {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-6 font-[family-name:var(--font-dm-serif)] text-[var(--ink)]">
+    <div className="max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-6 font-[family-name:var(--font-dm-serif)]">
         {t("addExpense", lang)}
       </h2>
 
@@ -55,7 +56,7 @@ export default function AddExpensePage() {
             value={entryDate}
             onChange={(e) => setEntryDate(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           />
         </div>
 
@@ -67,13 +68,13 @@ export default function AddExpensePage() {
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">
-            {t("amount", lang) || "Amount"}
+            {t("amount", lang)}
           </label>
           <input
             type="number"
@@ -81,18 +82,18 @@ export default function AddExpensePage() {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none font-[family-name:var(--font-jetbrains)]"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none font-[family-name:var(--font-jetbrains)]"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">
-            {t("fuel", lang)}
+            {t("category", lang)}
           </label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
           >
             <option value="fuel">{t("fuel", lang)}</option>
             <option value="driver">{t("driver", lang)}</option>

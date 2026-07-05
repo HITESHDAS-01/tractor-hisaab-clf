@@ -3,10 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSupabase } from "@/lib/supabase/provider";
-import { t, type Language } from "@/lib/i18n";
+import { useLangTheme } from "@/lib/lang-theme";
+import { t } from "@/lib/i18n";
 
 export default function ResetPasswordPage() {
-  const [lang] = useState<Language>("en");
+  const { lang, setLang } = useLangTheme();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -32,12 +33,20 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--bg-light)]">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-2xl font-bold text-center mb-2 font-[family-name:var(--font-dm-serif)] text-[var(--ink)]">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-card rounded-2xl shadow-lg p-8">
+        <div className="flex justify-end mb-2">
+          <button
+            onClick={() => setLang(lang === "en" ? "as" : "en")}
+            className="px-3 py-1 text-sm rounded-full border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white transition-colors"
+          >
+            {lang === "en" ? "অসমীয়া" : "English"}
+          </button>
+        </div>
+        <h1 className="text-2xl font-bold text-center mb-2 font-[family-name:var(--font-dm-serif)]">
           {t("resetPassword", lang)}
         </h1>
-        <p className="text-center text-[var(--text-muted)] mb-6">
+        <p className="text-center text-muted-dark mb-6">
           {t("appName", lang)}
         </p>
 
@@ -51,7 +60,7 @@ export default function ResetPasswordPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
             />
           </div>
 
@@ -75,7 +84,7 @@ export default function ResetPasswordPage() {
         <div className="mt-4 text-center">
           <Link
             href="/login"
-            className="text-sm text-[var(--text-muted)] hover:text-[var(--ink)]"
+            className="text-sm text-muted-dark hover:underline"
           >
             ← {t("login", lang)}
           </Link>

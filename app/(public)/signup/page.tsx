@@ -4,15 +4,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSupabase } from "@/lib/supabase/provider";
-import { t, type Language } from "@/lib/i18n";
+import { useLangTheme } from "@/lib/lang-theme";
+import { t } from "@/lib/i18n";
 
 export default function SignupPage() {
-  const [lang] = useState<Language>("en");
+  const { lang, setLang } = useLangTheme();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const { supabase } = useSupabase();
   const router = useRouter();
@@ -21,6 +23,7 @@ export default function SignupPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setMessage("");
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
@@ -28,7 +31,7 @@ export default function SignupPage() {
       return;
     }
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -38,19 +41,31 @@ export default function SignupPage() {
 
     if (error) {
       setError(error.message);
-    } else {
+    } else if (data.user?.identities?.length === 0) {
+      setError("An account with this email already exists");
+    } else if (data.session) {
       router.push("/dashboard");
+    } else {
+      setMessage("Account created! Check your email to confirm, then login.");
     }
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--bg-light)]">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-2xl font-bold text-center mb-2 font-[family-name:var(--font-dm-serif)] text-[var(--ink)]">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-card rounded-2xl shadow-lg p-8">
+        <div className="flex justify-end mb-2">
+          <button
+            onClick={() => setLang(lang === "en" ? "as" : "en")}
+            className="px-3 py-1 text-sm rounded-full border border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white transition-colors"
+          >
+            {lang === "en" ? "অসমীয়া" : "English"}
+          </button>
+        </div>
+        <h1 className="text-2xl font-bold text-center mb-2 font-[family-name:var(--font-dm-serif)]">
           {t("signup", lang)}
         </h1>
-        <p className="text-center text-[var(--text-muted)] mb-6">
+        <p className="text-center text-muted-dark mb-6">
           {t("appName", lang)}
         </p>
 
@@ -64,7 +79,7 @@ export default function SignupPage() {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
             />
           </div>
 
@@ -77,7 +92,7 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
             />
           </div>
 
@@ -90,7 +105,7 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
             />
           </div>
 
@@ -103,12 +118,16 @@ export default function SignupPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input focus:ring-2 focus:ring-[var(--ink)] focus:border-transparent outline-none"
             />
           </div>
 
           {error && (
             <p className="text-[var(--rust)] text-sm">{error}</p>
+          )}
+
+          {message && (
+            <p className="text-green-600 text-sm">{message}</p>
           )}
 
           <button
@@ -121,7 +140,7 @@ export default function SignupPage() {
         </form>
 
         <div className="mt-4 text-center">
-          <p className="text-sm text-[var(--text-muted)]">
+          <p className="text-sm text-muted-dark">
             {t("login", lang)}?{" "}
             <Link href="/login" className="text-[var(--ink)] font-medium hover:underline">
               {t("login", lang)}

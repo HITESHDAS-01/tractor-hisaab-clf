@@ -61,6 +61,11 @@ const translations: Record<Language, Record<string, string>> = {
     logout: "Logout",
     changePassword: "Change Password",
     version: "Version",
+    category: "Category",
+    startDate: "Start Date",
+    endDate: "End Date",
+    all: "All",
+    add: "Add",
   },
   as: {
     appName: "ট্ৰেক্টৰ সেৱা হিচাব",
@@ -122,6 +127,11 @@ const translations: Record<Language, Record<string, string>> = {
     logout: "লগ আউট",
     changePassword: "পাছৱৰ্ড সলনি কৰক",
     version: "সংস্কৰণ",
+    category: "শ্ৰেণী",
+    startDate: "আৰম্ভণিৰ তাৰিখ",
+    endDate: "শেষৰ তাৰিখ",
+    all: "সকলো",
+    add: "যোগ",
   },
 };
 

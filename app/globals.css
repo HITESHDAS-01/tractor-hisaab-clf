@@ -32,7 +32,30 @@ body {
 }
 
 .dark body,
-body.dark {
+.dark {
   background: var(--ink-dark);
   color: white;
+}
+
+/* Dark mode utilities */
+.dark .bg-card {
+  background: var(--surface-dark) !important;
+}
+
+.dark .bg-input {
+  background: var(--ink-dark) !important;
+  border-color: #374a3c !important;
+  color: white !important;
+}
+
+.dark .text-default {
+  color: white !important;
+}
+
+.dark .text-muted-dark {
+  color: #9ca8a0 !important;
+}
+
+.dark .border-dark {
+  border-color: #374a3c !important;
 }
