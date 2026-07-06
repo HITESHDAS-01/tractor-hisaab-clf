@@ -5,7 +5,7 @@
 //
 // Install: npm install @react-pdf/renderer
 
-import { Document, Page, Text, View, StyleSheet, Font } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, Font, Image } from "@react-pdf/renderer";
 import type { ReportData } from "@/lib/reports/get-report-data";
 
 // Design-system colors (matches the app's CSS tokens)
@@ -32,6 +32,15 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     borderBottom: `2 solid ${COLORS.ink}`,
     paddingBottom: 10,
+  },
+  headerCenter: {
+    alignItems: "center",
+    flex: 1,
+  },
+  logo: {
+    width: 48,
+    height: 48,
+    marginBottom: 4,
   },
   appName: {
     fontSize: 18,
@@ -149,18 +158,20 @@ function formatDate(dateStr: string): string {
 }
 
 export function ReportDocument({ data }: { data: ReportData }) {
-  const { ownerName, generatedDate, summary, incomeEntries, expenseEntries } = data;
+  const { ownerName, generatedDate, summary, incomeEntries, expenseEntries, logoBase64 } = data;
 
   return (
     <Document title="Sakhir Hichap - Complete Records">
       <Page size="A4" style={styles.page} wrap>
         {/* Header */}
         <View style={styles.headerRow}>
-          <View>
+          <View style={{ width: "25%" }} />
+          <View style={styles.headerCenter}>
+            <Image src={logoBase64} style={styles.logo} />
             <Text style={styles.appName}>Sakhir Hichap</Text>
             <Text style={styles.reportLabel}>Complete Records</Text>
           </View>
-          <View style={styles.headerRight}>
+          <View style={{ width: "25%", alignItems: "flex-end" }}>
             <Text style={styles.metaText}>Owner: {ownerName}</Text>
             <Text style={styles.metaText}>Generated: {generatedDate}</Text>
           </View>

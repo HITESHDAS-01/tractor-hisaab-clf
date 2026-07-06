@@ -9,6 +9,8 @@
 // lives somewhere other than '@/lib/supabase/server'.
 
 import { createClient } from "@/lib/supabase/server";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export interface IncomeRow {
   entry_date: string;
@@ -42,6 +44,7 @@ export interface ReportData {
   summary: ReportSummary;
   incomeEntries: IncomeRow[];
   expenseEntries: ExpenseRow[];
+  logoBase64: string;
 }
 
 /**
@@ -87,8 +90,11 @@ export async function getReportData(): Promise<ReportData> {
   const totalExpense = expenseEntries.reduce((sum, row) => sum + Number(row.amount), 0);
   const pendingBalance = incomeEntries.reduce((sum, row) => sum + Number(row.balance), 0);
 
+  const logoBuffer = readFileSync(join(process.cwd(), "public", "SHlogo.png"));
+  const logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
   return {
-    ownerName: profile?.full_name ?? "Tractor Owner",
+    ownerName: profile?.full_name || user.user_metadata?.full_name || user.email?.split("@")[0] || "Tractor Owner",
     generatedDate: new Date().toLocaleDateString("en-IN", {
       day: "2-digit",
       month: "short",
@@ -102,5 +108,6 @@ export async function getReportData(): Promise<ReportData> {
     },
     incomeEntries,
     expenseEntries,
+    logoBase64,
   };
 }
