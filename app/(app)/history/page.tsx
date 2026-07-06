@@ -127,8 +127,10 @@ export default function HistoryPage() {
             description: editForm.description,
             total_amount: (editForm as IncomeEntry).total_amount,
             amount_received: (editForm as IncomeEntry).amount_received,
+            payment_mode: (editForm as IncomeEntry).payment_mode,
             customer_name: (editForm as IncomeEntry).customer_name,
             village: (editForm as IncomeEntry).village,
+            land_area: (editForm as IncomeEntry).land_area,
           }
         : {
             entry_date: editForm.entry_date,
@@ -212,49 +214,143 @@ export default function HistoryPage() {
       {editingEntry && (
         <div className="bg-card p-4 rounded-xl shadow-sm space-y-3">
           <h3 className="font-semibold">{t("edit", lang)}</h3>
-          <input
-            type="date"
-            value={editForm.entry_date || ""}
-            onChange={(e) => setEditForm({ ...editForm, entry_date: e.target.value })}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
-          />
-          <input
-            type="text"
-            value={editForm.description || ""}
-            onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-            placeholder={t("description", lang)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
-          />
-          <input
-            type="number"
-            step="0.01"
-            value={editingEntry.type === "income" ? (editForm as IncomeEntry).total_amount || "" : (editForm as ExpenseEntry).amount || ""}
-            onChange={(e) =>
-              editingEntry.type === "income"
-                ? setEditForm({ ...editForm, total_amount: parseFloat(e.target.value) } as any)
-                : setEditForm({ ...editForm, amount: parseFloat(e.target.value) } as any)
-            }
-            placeholder={t("amount", lang)}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none font-[family-name:var(--font-jetbrains)]"
-          />
-          {editingEntry.type === "income" && (
+
+          {/* Date */}
+          <div>
+            <label className="block text-sm font-medium mb-1">{t("date", lang)}</label>
+            <input
+              type="date"
+              value={editForm.entry_date || ""}
+              onChange={(e) => setEditForm({ ...editForm, entry_date: e.target.value })}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block text-sm font-medium mb-1">{t("description", lang)}</label>
+            <input
+              type="text"
+              value={editForm.description || ""}
+              onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
+            />
+          </div>
+
+          {editingEntry.type === "income" ? (
             <>
-              <input
-                type="text"
-                value={(editForm as IncomeEntry).customer_name || ""}
-                onChange={(e) => setEditForm({ ...editForm, customer_name: e.target.value } as any)}
-                placeholder={t("customerName", lang)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
-              />
-              <input
-                type="text"
-                value={(editForm as IncomeEntry).village || ""}
-                onChange={(e) => setEditForm({ ...editForm, village: e.target.value } as any)}
-                placeholder={t("village", lang)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
-              />
+              {/* Income: Total Amount */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("totalAmount", lang)}</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={(editForm as IncomeEntry).total_amount ?? ""}
+                  onChange={(e) => setEditForm({ ...editForm, total_amount: parseFloat(e.target.value) || 0 } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none font-[family-name:var(--font-jetbrains)]"
+                />
+              </div>
+
+              {/* Income: Amount Received */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("amountReceived", lang)}</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={(editForm as IncomeEntry).amount_received ?? ""}
+                  onChange={(e) => setEditForm({ ...editForm, amount_received: parseFloat(e.target.value) || 0 } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none font-[family-name:var(--font-jetbrains)]"
+                />
+              </div>
+
+              {/* Income: Balance (read-only) */}
+              <div className="p-4 bg-[var(--harvest)]/10 rounded-lg">
+                <span className="text-sm text-muted-dark">{t("balance", lang)}:</span>
+                <span className="ml-2 text-xl font-bold font-[family-name:var(--font-jetbrains)] text-[var(--harvest)]">
+                  ₹{(((editForm as IncomeEntry).total_amount ?? 0) - ((editForm as IncomeEntry).amount_received ?? 0)).toFixed(2)}
+                </span>
+              </div>
+
+              {/* Income: Payment Mode */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("paymentMode", lang)}</label>
+                <select
+                  value={(editForm as IncomeEntry).payment_mode || "cash"}
+                  onChange={(e) => setEditForm({ ...editForm, payment_mode: e.target.value } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
+                >
+                  <option value="cash">{t("cash", lang)}</option>
+                  <option value="upi">{t("upi", lang)}</option>
+                  <option value="bank_transfer">{t("bankTransfer", lang)}</option>
+                  <option value="other">{t("other", lang)}</option>
+                </select>
+              </div>
+
+              {/* Income: Customer Name */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("customerName", lang)}</label>
+                <input
+                  type="text"
+                  value={(editForm as IncomeEntry).customer_name || ""}
+                  onChange={(e) => setEditForm({ ...editForm, customer_name: e.target.value } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
+                />
+              </div>
+
+              {/* Income: Village */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("village", lang)}</label>
+                <input
+                  type="text"
+                  value={(editForm as IncomeEntry).village || ""}
+                  onChange={(e) => setEditForm({ ...editForm, village: e.target.value } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
+                />
+              </div>
+
+              {/* Income: Land Area */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("landArea", lang)}</label>
+                <input
+                  type="text"
+                  value={(editForm as IncomeEntry).land_area || ""}
+                  onChange={(e) => setEditForm({ ...editForm, land_area: e.target.value } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Expense: Category */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("category", lang)}</label>
+                <select
+                  value={(editForm as ExpenseEntry).category || "fuel"}
+                  onChange={(e) => setEditForm({ ...editForm, category: e.target.value } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none"
+                >
+                  <option value="fuel">{t("fuel", lang)}</option>
+                  <option value="driver">{t("driver", lang)}</option>
+                  <option value="helper">{t("helper", lang)}</option>
+                  <option value="repair_maintenance">{t("repairMaintenance", lang)}</option>
+                  <option value="others">{t("others", lang)}</option>
+                </select>
+              </div>
+
+              {/* Expense: Amount */}
+              <div>
+                <label className="block text-sm font-medium mb-1">{t("amount", lang)}</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={(editForm as ExpenseEntry).amount ?? ""}
+                  onChange={(e) => setEditForm({ ...editForm, amount: parseFloat(e.target.value) || 0 } as any)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-input outline-none font-[family-name:var(--font-jetbrains)]"
+                />
+              </div>
             </>
           )}
+
           <div className="flex gap-2">
             <button
               onClick={handleSaveEdit}
