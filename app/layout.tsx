@@ -28,7 +28,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Sakhir Hichap",
   description: "Track your tractor income and expenses",
-  manifest: "/manifest.json",
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: "/favicon-32x32.png",
     apple: "/apple-touch-icon.png",
