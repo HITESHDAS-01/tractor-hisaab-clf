@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Sakhir Hichap",
-    short_name: "Hisaab",
+    short_name: "Sakhir Hichap",
     description: "Track your tractor income and expenses",
     start_url: "/",
     display: "standalone",

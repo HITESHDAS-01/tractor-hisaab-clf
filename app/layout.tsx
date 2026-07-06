@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Hisaab",
+    title: "Sakhir Hichap",
   },
 };
 
