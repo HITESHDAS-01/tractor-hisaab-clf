@@ -6,6 +6,7 @@ import { useLangTheme } from "@/lib/lang-theme";
 import { t } from "@/lib/i18n";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ExportButtons } from "@/components/settings/ExportButtons";
 
 export default function SettingsPage() {
   const { lang, setLang, theme, setTheme } = useLangTheme();
@@ -180,6 +181,18 @@ export default function SettingsPage() {
         >
           {t("help", lang)}
         </Link>
+      </div>
+
+      <div className="bg-card p-4 rounded-xl shadow-sm space-y-3">
+        <h3 className="font-semibold">
+          {lang === "en" ? "Export Data" : "তথ্য এক্সপ'ৰ্ট কৰক"}
+        </h3>
+        <p className="text-sm text-muted-dark">
+          {lang === "en"
+            ? "Download your complete income and expense records as PDF or CSV."
+            : "আপোনাৰ সকলো আয় আৰু খৰচৰ হিচাপ PDF বা CSV ত ডাউনল'ড কৰক।"}
+        </p>
+        <ExportButtons />
       </div>
 
       {/* Delete Account Section */}
