@@ -26,7 +26,7 @@ create table expense_entries (
   id uuid primary key default gen_random_uuid(),
   owner_id uuid references auth.users(id) on delete cascade not null,
   entry_date date not null,
-  category text not null check (category in ('fuel','driver','helper','repair_maintenance')),
+  category text not null check (category in ('fuel','driver','helper','repair_maintenance','others')),
   amount numeric(10,2) not null,
   description text,
   created_at timestamptz default now()

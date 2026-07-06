@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display, Hind_Siliguri, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SupabaseProvider from "@/lib/supabase/provider";
@@ -21,11 +21,22 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#2F4A3B",
+};
+
 export const metadata: Metadata = {
   title: "Sakhir Hichap",
   description: "Track your tractor income and expenses",
+  manifest: "/manifest.json",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon-32x32.png",
+    apple: "/apple-touch-icon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Hisaab",
   },
 };
 
