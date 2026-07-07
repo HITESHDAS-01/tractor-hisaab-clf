@@ -192,22 +192,22 @@ export default function DashboardPage() {
 
       {/* 4 Summary Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl shadow-sm">
-          <p className="text-sm font-medium text-amber-800">{t("totalIncome", lang)}</p>
-          <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-amber-700">
+        <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl shadow-sm overflow-hidden">
+          <p className="text-sm font-medium text-amber-800 truncate">{t("totalIncome", lang)}</p>
+          <p className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-amber-700 truncate">
             ₹{totalIncome.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
         </div>
-        <div className="bg-red-50 border border-red-100 p-4 rounded-xl shadow-sm">
-          <p className="text-sm font-medium text-red-800">{t("totalExpense", lang)}</p>
-          <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-red-600">
+        <div className="bg-red-50 border border-red-100 p-4 rounded-xl shadow-sm overflow-hidden">
+          <p className="text-sm font-medium text-red-800 truncate">{t("totalExpense", lang)}</p>
+          <p className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-red-600 truncate">
             ₹{totalExpense.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
         </div>
-        <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-xl shadow-sm">
-          <p className="text-sm font-medium text-emerald-800">{t("netProfit", lang)}</p>
+        <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-xl shadow-sm overflow-hidden">
+          <p className="text-sm font-medium text-emerald-800 truncate">{t("netProfit", lang)}</p>
           <p
-            className={`text-2xl font-bold font-[family-name:var(--font-jetbrains)] ${
+            className={`text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] truncate ${
               netProfit >= 0 ? "text-emerald-700" : "text-red-600"
             }`}
           >
@@ -235,9 +235,9 @@ export default function DashboardPage() {
               <line x1="40" y1="0" x2="0" y2="40" stroke="rgba(168,80,63,0.3)" strokeWidth="0.5" />
             </svg>
           </div>
-          <div className="p-4">
-            <p className="text-sm font-medium text-orange-800">{t("pendingBalance", lang)}</p>
-            <p className="text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-orange-600">
+          <div className="p-4 min-w-0">
+            <p className="text-sm font-medium text-orange-800 truncate">{t("pendingBalance", lang)}</p>
+            <p className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-orange-600 truncate">
               ₹{pendingBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
             </p>
           </div>
