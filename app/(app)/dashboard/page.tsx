@@ -55,7 +55,8 @@ export default function DashboardPage() {
       switch (dateRange) {
         case "week": {
           const d = new Date();
-          d.setDate(d.getDate() - 7);
+          const day = d.getDay();
+          d.setDate(d.getDate() - ((day + 6) % 7));
           startDate = toLocalDateStr(d);
           endDate = toLocalDateStr(now);
           break;
