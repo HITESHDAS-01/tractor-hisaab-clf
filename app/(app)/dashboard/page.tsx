@@ -194,20 +194,20 @@ export default function DashboardPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl shadow-sm overflow-hidden">
           <p className="text-sm font-medium text-amber-800 truncate">{t("totalIncome", lang)}</p>
-          <p className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-amber-700 truncate">
+          <p className="text-sm sm:text-lg md:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-amber-700">
             ₹{totalIncome.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
         </div>
         <div className="bg-red-50 border border-red-100 p-4 rounded-xl shadow-sm overflow-hidden">
           <p className="text-sm font-medium text-red-800 truncate">{t("totalExpense", lang)}</p>
-          <p className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-red-600 truncate">
+          <p className="text-sm sm:text-lg md:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-red-600">
             ₹{totalExpense.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
         </div>
         <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-xl shadow-sm overflow-hidden">
           <p className="text-sm font-medium text-emerald-800 truncate">{t("netProfit", lang)}</p>
           <p
-            className={`text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] truncate ${
+            className={`text-sm sm:text-lg md:text-2xl font-bold font-[family-name:var(--font-jetbrains)] ${
               netProfit >= 0 ? "text-emerald-700" : "text-red-600"
             }`}
           >
@@ -237,7 +237,7 @@ export default function DashboardPage() {
           </div>
           <div className="p-4 min-w-0">
             <p className="text-sm font-medium text-orange-800 truncate">{t("pendingBalance", lang)}</p>
-            <p className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-orange-600 truncate">
+            <p className="text-sm sm:text-lg md:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-orange-600">
               ₹{pendingBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
             </p>
           </div>
