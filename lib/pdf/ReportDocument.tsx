@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   summaryCard: {
-    width: "23%",
+    width: "18%",
     padding: 8,
     backgroundColor: COLORS.bgLight,
     borderRadius: 4,
@@ -208,6 +208,14 @@ export function ReportDocument({ data }: { data: ReportData }) {
             <Text style={styles.summaryLabel}>PENDING BALANCE</Text>
             <Text style={[styles.summaryValue, { color: COLORS.rust }]}>
               {formatCurrency(summary.pendingBalance)}
+            </Text>
+          </View>
+          <View style={styles.summaryCard}>
+            <Text style={styles.summaryLabel}>LAND AREA</Text>
+            <Text style={[styles.summaryValue, { color: COLORS.ink }]}>
+              {summary.totalLandArea > 0
+                ? `${Math.floor(summary.totalLandArea)} bigha${Math.round((summary.totalLandArea - Math.floor(summary.totalLandArea)) * 10) > 0 ? ` ${Math.round((summary.totalLandArea - Math.floor(summary.totalLandArea)) * 10)} katha` : ""}`
+                : "-"}
             </Text>
           </View>
         </View>

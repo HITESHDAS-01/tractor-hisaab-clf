@@ -34,6 +34,7 @@ export interface ReportSummary {
   totalExpense: number;
   netProfit: number;
   pendingBalance: number;
+  totalLandArea: number;
 }
 
 export interface ReportData {
@@ -101,6 +102,7 @@ export async function getReportData(startDate?: string, endDate?: string): Promi
   const totalIncome = incomeEntries.reduce((sum, row) => sum + Number(row.total_amount), 0);
   const totalExpense = expenseEntries.reduce((sum, row) => sum + Number(row.amount), 0);
   const pendingBalance = incomeEntries.reduce((sum, row) => sum + Number(row.balance), 0);
+  const totalLandArea = incomeEntries.reduce((sum, row) => sum + (parseFloat(row.land_area || "") || 0), 0);
 
   const logoBuffer = readFileSync(join(process.cwd(), "public", "SHlogo.png"));
   const logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
@@ -120,6 +122,7 @@ export async function getReportData(startDate?: string, endDate?: string): Promi
       totalExpense,
       netProfit: totalIncome - totalExpense,
       pendingBalance,
+      totalLandArea,
     },
     incomeEntries,
     expenseEntries,
