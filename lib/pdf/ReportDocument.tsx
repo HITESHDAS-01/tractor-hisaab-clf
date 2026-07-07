@@ -158,7 +158,7 @@ function formatDate(dateStr: string): string {
 }
 
 export function ReportDocument({ data }: { data: ReportData }) {
-  const { ownerName, generatedDate, summary, incomeEntries, expenseEntries, logoBase64 } = data;
+  const { ownerName, generatedDate, dateRange, summary, incomeEntries, expenseEntries, logoBase64 } = data;
 
   return (
     <Document title="Sakhir Hichap - Complete Records">
@@ -169,7 +169,14 @@ export function ReportDocument({ data }: { data: ReportData }) {
           <View style={styles.headerCenter}>
             <Image src={logoBase64} style={styles.logo} />
             <Text style={styles.appName}>Sakhir Hichap</Text>
-            <Text style={styles.reportLabel}>Complete Records</Text>
+            <Text style={styles.reportLabel}>
+              {dateRange ? "Records" : "Complete Records"}
+            </Text>
+            {dateRange && (
+              <Text style={styles.metaText}>
+                {formatDate(dateRange.start)} to {formatDate(dateRange.end)}
+              </Text>
+            )}
           </View>
           <View style={{ width: "25%", alignItems: "flex-end" }}>
             <Text style={styles.metaText}>Owner: {ownerName}</Text>

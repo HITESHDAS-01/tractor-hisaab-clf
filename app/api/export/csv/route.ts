@@ -1,10 +1,9 @@
 // app/api/export/csv/route.ts
 //
-// GET /api/export/csv
+// GET /api/export/csv?start=2026-04-01&end=2026-07-07
 // Generates a single combined CSV (income + expense rows, distinguished
 // by a "Type" column) for the authenticated owner, ready for Excel/Tally
-// import. No external CSV library needed — plain string building with
-// proper quote-escaping is enough for this shape of data.
+// import. Optional query params: start, end (ISO date strings).
 
 import { getReportData, type IncomeRow, type ExpenseRow } from "@/lib/reports/get-report-data";
 
@@ -63,9 +62,13 @@ function expenseToRow(row: ExpenseRow): string {
   ].join(",");
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const data = await getReportData();
+    const { searchParams } = new URL(request.url);
+    const start = searchParams.get("start") || undefined;
+    const end = searchParams.get("end") || undefined;
+
+    const data = await getReportData(start, end);
 
     const lines = [
       HEADERS.join(","),
@@ -81,11 +84,15 @@ export async function GET() {
       .toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })
       .replace(/\s/g, "");
 
+    const rangeLabel = start && end
+      ? `-${start}to${end}`
+      : "-complete";
+
     return new Response(csvContent, {
       status: 200,
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="sakhir-hichap-complete-report-${dateStamp}.csv"`,
+        "Content-Disposition": `attachment; filename="sakhir-hichap-report${rangeLabel}-${dateStamp}.csv"`,
       },
     });
   } catch (err) {
