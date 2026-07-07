@@ -286,10 +286,10 @@ export default function DashboardPage() {
               .map(([cat, amount]) => (
                 <div key={cat}>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm">
+                    <span className="text-sm font-medium text-slate-700">
                       {t(cat === "repair_maintenance" ? "repairMaintenance" : cat, lang)}
                     </span>
-                    <span className="font-[family-name:var(--font-jetbrains)] text-sm">
+                    <span className="font-[family-name:var(--font-jetbrains)] text-sm text-slate-600">
                       ₹{amount.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                     </span>
                   </div>
