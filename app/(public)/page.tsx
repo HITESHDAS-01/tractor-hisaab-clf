@@ -109,6 +109,13 @@ export default function LandingPage() {
           >
             {t("login", lang)}
           </a>
+          <span className="text-muted-dark mx-3">|</span>
+          <a
+            href="/about"
+            className="text-[var(--ink)] font-medium hover:underline"
+          >
+            {t("about", lang)}
+          </a>
         </div>
       </main>
     </div>
