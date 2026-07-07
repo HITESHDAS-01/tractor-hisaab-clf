@@ -36,8 +36,13 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [customStart, setCustomStart] = useState("");
   const [customEnd, setCustomEnd] = useState("");
+  const [appliedCustomStart, setAppliedCustomStart] = useState("");
+  const [appliedCustomEnd, setAppliedCustomEnd] = useState("");
   const { supabase, session } = useSupabase();
   const userName = session?.user?.user_metadata?.full_name || session?.user?.email?.split("@")[0] || "";
+
+  const toLocalDateStr = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
   useEffect(() => {
     if (!session) return;
@@ -45,29 +50,39 @@ export default function DashboardPage() {
     const fetchData = async () => {
       const now = new Date();
       let startDate: string;
+      let endDate: string;
 
       switch (dateRange) {
         case "week": {
           const d = new Date();
           d.setDate(d.getDate() - 7);
-          startDate = d.toISOString().split("T")[0];
+          startDate = toLocalDateStr(d);
+          endDate = toLocalDateStr(now);
           break;
         }
         case "month":
-          startDate = new Date(now.getFullYear(), now.getMonth(), 1)
-            .toISOString()
-            .split("T")[0];
+          startDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
+          endDate = toLocalDateStr(now);
           break;
-        case "season":
-          startDate = new Date(now.getFullYear(), 3, 1)
-            .toISOString()
-            .split("T")[0];
+        case "season": {
+          const yr = now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
+          startDate = `${yr}-04-01`;
+          endDate = toLocalDateStr(now);
           break;
+        }
         case "custom":
-          startDate = customStart || "2024-01-01";
+          if (!appliedCustomStart || !appliedCustomEnd) {
+            setIncomeEntries([]);
+            setExpenseEntries([]);
+            setLoading(false);
+            return;
+          }
+          startDate = appliedCustomStart;
+          endDate = appliedCustomEnd;
           break;
         default:
           startDate = "2024-01-01";
+          endDate = toLocalDateStr(now);
       }
 
       const [incomeRes, expenseRes] = await Promise.all([
@@ -75,13 +90,13 @@ export default function DashboardPage() {
           .from("income_entries")
           .select("*")
           .gte("entry_date", startDate)
-          .lte("entry_date", customEnd || "2099-12-31")
+          .lte("entry_date", endDate)
           .order("entry_date", { ascending: false }),
         supabase
           .from("expense_entries")
           .select("*")
           .gte("entry_date", startDate)
-          .lte("entry_date", customEnd || "2099-12-31")
+          .lte("entry_date", endDate)
           .order("entry_date", { ascending: false }),
       ]);
 
@@ -94,7 +109,7 @@ export default function DashboardPage() {
     };
 
     fetchData();
-  }, [session, dateRange, customStart, customEnd, supabase]);
+  }, [session, dateRange, appliedCustomStart, appliedCustomEnd, supabase]);
 
   const totalIncome = incomeEntries.reduce((sum, e) => sum + e.total_amount, 0);
   const totalReceived = incomeEntries.reduce(
@@ -187,6 +202,18 @@ export default function DashboardPage() {
             onChange={(e) => setCustomEnd(e.target.value)}
             className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-300 bg-input outline-none"
           />
+          <button
+            onClick={() => {
+              if (customStart && customEnd) {
+                setAppliedCustomStart(customStart);
+                setAppliedCustomEnd(customEnd);
+              }
+            }}
+            disabled={!customStart || !customEnd}
+            className="px-4 py-2 text-sm font-medium rounded-lg bg-[var(--ink)] text-white disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {t("apply", lang) || "Apply"}
+          </button>
         </div>
       )}
 
