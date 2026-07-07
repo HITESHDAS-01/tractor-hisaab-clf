@@ -121,6 +121,13 @@ export default function DashboardPage() {
   const netProfit = totalIncome - totalExpense;
   const pendingBalance = totalIncome - totalReceived;
 
+  const totalLandArea = incomeEntries.reduce(
+    (sum, e) => sum + (parseFloat(e.land_area || "") || 0),
+    0
+  );
+  const landBigha = Math.floor(totalLandArea);
+  const landKatha = Math.round((totalLandArea - landBigha) * 10);
+
   const pendingPayments = incomeEntries
     .filter((e) => e.balance > 0)
     .sort((a, b) => new Date(a.entry_date).getTime() - new Date(b.entry_date).getTime());
@@ -218,8 +225,8 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* 4 Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl shadow-sm overflow-hidden">
           <p className="text-sm font-medium text-amber-800 truncate">{t("totalIncome", lang)}</p>
           <p className="text-sm sm:text-lg md:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-amber-700">
@@ -270,9 +277,17 @@ export default function DashboardPage() {
             </p>
           </div>
         </div>
-      </div>
 
-      {/* Charts row - side by side on desktop */}
+        {/* Total Land Area */}
+        <div className="bg-sky-50 border border-sky-100 p-4 rounded-xl shadow-sm overflow-hidden">
+          <p className="text-sm font-medium text-sky-800 truncate">{t("landArea", lang)}</p>
+          <p className="text-sm sm:text-lg md:text-2xl font-bold font-[family-name:var(--font-jetbrains)] text-sky-700">
+            {totalLandArea > 0
+              ? `${landBigha} ${lang === "en" ? "bigha" : "বিঘা"}${landKatha > 0 ? ` ${landKatha} ${lang === "en" ? "katha" : "কঠা"}` : ""}`
+              : "—"}
+          </p>
+        </div>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Expense Breakdown Bar Chart */}
       <div className="bg-slate-50 border border-slate-100 p-5 rounded-xl shadow-sm">
